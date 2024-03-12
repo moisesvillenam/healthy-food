@@ -1,0 +1,53 @@
+{
+    "platos": [
+       {
+          "nombre": "Ensalada de Pollo",
+          "imagen": "ensalada.jpg",
+          "precio": 7.99,
+          "calorias": 300
+       },
+       {
+          "nombre": "Pasta Marinara",
+          "imagen": "pasta.jpg",
+          "precio": 9.99,
+          "calorias": 450
+       },
+       {
+          "nombre": "Salmón a la Parrilla",
+          "imagen": "salmon.jpg",
+          "precio": 12.99,
+          "calorias": 350
+       },
+       {
+        "nombre": "Lasagna",
+        "imagen": "lasagna.jpg",
+        "precio": 8.99,
+        "calorias": 600
+     },
+     {
+        "nombre": "Pasta alfredo",
+        "imagen": "alfredo.jpg",
+        "precio": 12.99,
+        "calorias": 800
+     },
+     {
+        "nombre": "Pollo con legumbres",
+        "imagen": "pollo.jpg",
+        "precio": 5.99,
+        "calorias": 350
+     },
+     {
+        "nombre": "Hamburguesa",
+        "imagen": "hamburguesa.jpg",
+        "precio": 4.99,
+        "calorias": 1000
+     },
+     {
+        "nombre": "ratatouille",
+        "imagen": "rata.jpg",
+        "precio": 10.99,
+        "calorias": 200
+     }
+    ]
+ }
+ 

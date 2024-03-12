@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Healthy Food - Inicio</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #fafafa;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+        }
+
+        #welcome {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        #startButton {
+            background-color: #2ecc71;
+            color: #fff;
+            padding: 15px 30px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        #startButton:hover {
+            background-color: #27ae60;
+        }
+
+        #calculator {
+            display: none; /* Ocultar la calculadora inicialmente */
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            text-align: center;
+        }
+
+        h1 {
+            color: #3498db;
+        }
+
+        label {
+            display: block;
+            margin-top: 10px;
+            color: #555;
+        }
+
+        input {
+            width: 100%;
+            padding: 10px;
+            margin-top: 5px;
+            margin-bottom: 10px;
+            box-sizing: border-box;
+        }
+
+        button {
+            background-color: #2ecc71;
+            color: #fff;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+
+        button:hover {
+            background-color: #27ae60;
+        }
+
+        #result, #idealWeight, #calories {
+            margin-top: 20px;
+            color: #333;
+        }
+
+        nav {
+            background-color: #3498db;
+            padding: 10px;
+            text-align: center;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+        }
+
+        nav a {
+            color: #fff;
+            text-decoration: none;
+            margin: 0 15px;
+            font-size: 18px;
+        }
+
+        nav a:hover {
+            text-decoration: underline;
+        }
+        #menu {
+            display: none;
+            position: relative;
+            bottom: 0;
+            width: 100%;
+            background-color: #fff;
+            text-align: center;
+            padding: 20px;
+        }
+        .dish img {
+        width: auto; 
+        height: 150px; 
+        margin-bottom: 10px; 
+    }
+
+    </style>
+</head>
+<body>
+
+<nav>
+    <a href="#">Healthy Food</a>
+    <a href="#">Recetas</a>
+    <a href="#">Blog</a>
+    <a href="#">Contacto</a>
+</nav>
+
+<div id="welcome">
+    <h1>¿Quieres empezar a comer sano sin tener que cocinar?</h1>
+    <button id="startButton" onclick="mostrarCalculadora()">Sí, ¡quiero calcular mi IMC!</button>
+</div>
+
+<div id="calculator">
+    <h1>Calculadora de IMC</h1>
+
+    <label for="weight">Peso (kg): </label>
+    <input type="number" id="weight" placeholder="Ingrese su peso" required>
+    <label for="height">Altura (m): </label>
+    <input type="number" id="height" placeholder="Ingrese su altura" required>
+    <label for="age">Edad: </label>
+    <input type="number" id="age" placeholder="Ingrese su edad" required onkeydown="checkEnter(event)" onclick="clearEnterEvent()">
+    <button onclick="calcularIMC()">Calcular IMC</button>
+
+    <h3 id="result"></h3>
+    <h3 id="idealWeight"></h3>
+    <h3 id="calories"></h3>
+</div>
+<button id="showMenuButton" onclick="cargarMenu()" style="display: none;">Mostrar Menú</button>
+<div id="menu"></div>
+    <script>
+        function mostrarCalculadora() {
+            // Ocultar la bienvenida
+            document.getElementById("welcome").style.display = "none";
+            // Mostrar la calculadora
+            document.getElementById("calculator").style.display = "block";
+        }
+
+        function calcularIMC() {
+            var peso = parseFloat(document.getElementById("weight").value);
+            var altura = parseFloat(document.getElementById("height").value);
+            var edad = parseFloat(document.getElementById("age").value);
+            if (!isNaN(edad) && !isNaN(peso) && !isNaN(altura) && altura > 0 && peso > 0 && edad > 12) {
+                var imc = peso / (altura * altura);
+                var resultado = "Su IMC es: " + imc.toFixed(2);
+
+                if (imc < 18.5) {
+                    resultado += " (Bajo peso)";
+                } else if (imc < 24.9) {
+                    resultado += " (Peso normal)";
+                } else if (imc < 29.9) {
+                    resultado += " (Sobrepeso)";
+                } else {
+                    resultado += " (Obesidad)";
+                }
+
+                var idealWeight = 22.5 * altura * altura;
+                var calories = calcularCalorias(idealWeight, edad);
+
+                document.getElementById("result").innerText = resultado;
+                document.getElementById("idealWeight").innerText = "Su peso ideal es: " + idealWeight.toFixed(2) + " kg";
+                document.getElementById("calories").innerText = "Calorías recomendadas: " + calories.toFixed(2) + " kcal";
+                document.getElementById("showMenuButton").style.display = "block";
+            } else {
+                alert("Por favor, ingrese valores válidos para peso, edad y altura.");
+            }
+        }
+        function calcularCalorias(peso, edad) {
+            if (edad < 18){
+                var calorias = (15.535*peso)+675.2;
+            }else if (edad<30){
+                var calorias = (14.9375*peso)+589.40;
+            }else if (edad < 60){
+                var calorias = (9.799*peso)+859.35;
+            }else{
+                var calorias = (10.3965*peso)+623.1;
+            }
+            return calorias*1.5;
+        }
+
+// Función para cargar el menú desde el archivo JSON
+        function cargarMenu() {
+            fetch('menu.json')
+                .then(response => response.json())
+                .then(data => {
+                    mostrarMenu(data.platos);
+                    // Muestra el menú después de cargarlo
+                    document.getElementById("menu").style.display = "block";
+                    // Oculta el botón después de cargar el menú
+                    document.getElementById("showMenuButton").style.display = "none";
+                })
+                .catch(error => console.error('Error al cargar el menú:', error));
+        }
+
+
+        function mostrarMenu(platos) {
+            var menuContainer = document.getElementById('menu');
+            var sugerenciaCalorias = document.getElementById('calories').innerText;
+            sugerenciaCalorias = parseFloat(sugerenciaCalorias.split(' ')[2]);
+
+            // Filtrar platos que tengan menos o igual cantidad de calorías que la tercera parte de la sugerencia
+            var platosFiltrados = platos.filter(plato => plato.calorias <= sugerenciaCalorias * 0.3);
+
+            // Mostrar máximo 5 platos
+            var platosAMostrar = platosFiltrados.slice(0, 5);
+
+            platosAMostrar.forEach(plato => {
+                var dishDiv = document.createElement('div');
+                dishDiv.className = 'dish';
+
+                var img = document.createElement('img');
+                img.src = plato.imagen;
+                img.alt = plato.nombre;
+
+                var nombre = document.createElement('h3');
+                nombre.innerText = plato.nombre;
+
+                var precio = document.createElement('p');
+                precio.innerText = 'Precio: $' + plato.precio.toFixed(2);
+
+                var calorias = document.createElement('p');
+                calorias.innerText = 'Calorías: ' + plato.calorias + ' kcal';
+
+                dishDiv.appendChild(img);
+                dishDiv.appendChild(nombre);
+                dishDiv.appendChild(precio);
+                dishDiv.appendChild(calorias);
+
+                menuContainer.appendChild(dishDiv);
+            });
+        }
+        window.onload = function() {
+
+        };
+        var executeCheckEnter = true;
+        function checkEnter(event) {
+            if (event.key === "Enter" && executeCheckEnter) {
+                calcularIMC();
+            }
+        }
+        function clearEnterEvent() {
+            executeCheckEnter = true;
+        }   
+    </script>
+</body>
+</html>
