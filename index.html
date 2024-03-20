@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Healthy Food - Inicio</title>
+    <title>MotivatEats</title>
     <style>
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -16,6 +16,11 @@
             justify-content: center;
             min-height: 100vh;
         }
+        img {
+            max-width: 100%;
+            height: auto;
+        }
+
         body {
             font-size: 16px; /* Establece un tamaño de fuente base */
         }
@@ -25,10 +30,7 @@
                 font-size: 14px; /* Modifica el tamaño de fuente para pantallas más pequeñas */
             }
         }
-        img {
-            max-width: 100%;
-            height: auto;
-        }
+
         #welcome {
             text-align: center;
             margin-bottom: 20px;
@@ -125,20 +127,42 @@
         .dish img {
         width: auto; 
         height: 150px; 
-        margin-bottom: 10px; 
-    }
+        margin-bottom: 10px;
+        }
+        nav img {
+            width: 100px; /* Ajusta el ancho según tu preferencia */
+            height: auto; /* Autoajusta la altura según el ancho */
+        }
+        nav {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 10px;
+        }
 
+        nav a {
+            margin: 0 15px;
+            font-size: 18px;
+            text-decoration: none;
+            color: #333;
+        }
+
+        nav h1 {
+            margin: 0;
+            font-size: 24px;
+            color:#fff;
+            font-family: 'Arial', sans-serif; /* Cambia la fuente según tu preferencia */   
+        }
     </style>
 </head>
 <body>
-
 <nav>
-    <a href="#">Healthy Food</a>
-    <a href="#">Recetas</a>
-    <a href="#">Blog</a>
-    <a href="#">Contacto</a>
+    <div class="logo-container">
+        <a href="#"><img src="Logo.png" alt="Logo"></a>
+    </div>
+    <h1>MotivatEats</h1>
 </nav>
-
+    
 <div id="welcome">
     <h1>¿Quieres empezar a comer sano sin tener que cocinar?</h1>
     <button id="startButton" onclick="mostrarCalculadora()">Sí, ¡quiero calcular mi IMC!</button>
@@ -213,18 +237,19 @@
 
 // Función para cargar el menú desde el archivo JSON
         function cargarMenu() {
-            fetch('menu.json')
-                .then(response => response.json())
-                .then(data => {
-                    mostrarMenu(data.platos);
-                    // Muestra el menú después de cargarlo
-                    document.getElementById("menu").style.display = "block";
-                    // Oculta el botón después de cargar el menú
-                    document.getElementById("showMenuButton").style.display = "none";
-                })
-                .catch(error => console.error('Error al cargar el menú:', error));
-        }
+                // Cerrar la calculadora al abrir el menú
+                document.getElementById("calculator").style.display = "none";
 
+                // Código para cargar el menú desde el archivo JSON
+                fetch('menu.json')
+                    .then(response => response.json())
+                    .then(data => {
+                        mostrarMenu(data.platos);
+                        document.getElementById("menu").style.display = "block";
+                        document.getElementById("showMenuButton").style.display = "none";
+                    })
+                    .catch(error => console.error('Error al cargar el menú:', error));
+            }
 
         function mostrarMenu(platos) {
             var menuContainer = document.getElementById('menu');
@@ -232,15 +257,13 @@
             sugerenciaCalorias = parseFloat(sugerenciaCalorias.split(' ')[2]);
 
             // Filtrar platos que tengan menos o igual cantidad de calorías que la tercera parte de la sugerencia
-            var platosFiltrados = platos.filter(plato => plato.calorias <= sugerenciaCalorias * 0.3);
-
+            var platosFiltrados = platos.filter(plato => plato.calorias <= sugerenciaCalorias * 0.35);
+            var platosFinal = platosFiltrados.sort(function() { return Math.random() - 0.5 });
             // Mostrar máximo 5 platos
-            var platosAMostrar = platosFiltrados.slice(0, 5);
-
+            var platosAMostrar = platosFinal.slice(0, 5);
             platosAMostrar.forEach(plato => {
                 var dishDiv = document.createElement('div');
                 dishDiv.className = 'dish';
-
                 var img = document.createElement('img');
                 img.src = plato.imagen;
                 img.alt = plato.nombre;
@@ -254,10 +277,19 @@
                 var calorias = document.createElement('p');
                 calorias.innerText = 'Calorías: ' + plato.calorias + ' kcal';
 
+                // Botón para cada plato
+                var botonPlato = document.createElement('button');
+                botonPlato.innerText = 'Ordenar';
+                botonPlato.onclick = function() {
+                    // Redireccionar al enlace del plato
+                    window.location.href = plato.enlace;
+                };
+
                 dishDiv.appendChild(img);
                 dishDiv.appendChild(nombre);
                 dishDiv.appendChild(precio);
                 dishDiv.appendChild(calorias);
+                dishDiv.appendChild(botonPlato);
 
                 menuContainer.appendChild(dishDiv);
             });
