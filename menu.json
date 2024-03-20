@@ -4,49 +4,57 @@
           "nombre": "Ensalada de Pollo",
           "imagen": "ensalada.jpg",
           "precio": 7.99,
-          "calorias": 300
+          "calorias": 300,
+          "enlace": "https://wa.link/6jrjot"
        },
        {
           "nombre": "Pasta Marinara",
           "imagen": "pasta.jpg",
           "precio": 9.99,
-          "calorias": 450
+          "calorias": 450,
+          "enlace": "https://wa.link/kuape1"
        },
        {
           "nombre": "Salmón a la Parrilla",
           "imagen": "salmon.jpg",
           "precio": 12.99,
-          "calorias": 350
+          "calorias": 350,
+          "enlace": "https://wa.link/godrw8"
        },
        {
         "nombre": "Lasagna",
         "imagen": "lasagna.jpg",
         "precio": 8.99,
-        "calorias": 600
+        "calorias": 600,
+        "enlace": "https://wa.link/3tsjvn"
      },
      {
         "nombre": "Pasta alfredo",
         "imagen": "alfredo.jpg",
         "precio": 12.99,
-        "calorias": 800
+        "calorias": 800,
+        "enlace": "https://wa.link/qgl1if"
      },
      {
         "nombre": "Pollo con legumbres",
         "imagen": "pollo.jpg",
         "precio": 5.99,
-        "calorias": 350
+        "calorias": 350,
+        "enlace": "https://wa.link/6t3ygf"
      },
      {
         "nombre": "Hamburguesa",
         "imagen": "hamburguesa.jpg",
         "precio": 4.99,
-        "calorias": 1000
+        "calorias": 500,
+        "enlace": "https://wa.link/4p3orv"
      },
      {
         "nombre": "ratatouille",
         "imagen": "rata.jpg",
         "precio": 10.99,
-        "calorias": 200
+        "calorias": 200,
+        "enlace": "https://wa.link/ifinmz"
      }
     ]
  }
