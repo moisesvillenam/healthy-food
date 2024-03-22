@@ -24,7 +24,7 @@ function calcularIMC() {
         }
 
         var idealWeight = 22.5 * altura * altura;
-        var calories = calcularCalorias(idealWeight, edad);
+        var calories = calcularCalorias(idealWeight, edad, imc);
 
         document.getElementById("result").innerText = resultado;
         document.getElementById("idealWeight").innerText = "Su peso ideal es: " + idealWeight.toFixed(2) + " kg";
@@ -35,7 +35,7 @@ function calcularIMC() {
     }
     document.getElementById("nav").classList.add("posicion-relativa");
 }
-function calcularCalorias(peso, edad) {
+function calcularCalorias(peso, edad, imc) {
     if (edad < 18){
         var calorias = (15.535*peso)+675.2;
     }else if (edad<30){
@@ -45,7 +45,17 @@ function calcularCalorias(peso, edad) {
     }else{
         var calorias = (10.3965*peso)+623.1;
     }
-    return calorias*1.5;
+    var calorias1 = calorias*1.5;
+    if (imc < 18.5){
+        var caloriasFinal = calorias1+500;
+    }else if (imc < 24.9){
+        var caloriasFinal = calorias1;
+    }else if (imc < 29.9){
+        var caloriasFinal = (calorias1-350);
+    }else{
+        var caloriasFinal = (calorias1-500);
+    }
+    return caloriasFinal;
 }
 
 // Función para cargar el menú desde el archivo JSON
@@ -74,7 +84,9 @@ function mostrarMenu(platos) {
     var platosFinal = platosFiltrados.sort(function() { return Math.random() - 0.5 });
     // Mostrar máximo 5 platos
     var platosAMostrar = platosFinal.slice(0, 5);
+    var listadeplatos = []
     platosAMostrar.forEach(plato => {
+        listadeplatos.push(plato.nombre)
         var dishDiv = document.createElement('div');
         dishDiv.className = 'dish';
         var img = document.createElement('img');
@@ -106,7 +118,13 @@ function mostrarMenu(platos) {
 
         menuContainer.appendChild(dishDiv);
     });
-}
+    var botonAdicional = document.getElementById("botonAdicional");
+    botonAdicional.style.display = "block";
+    botonAdicional.addEventListener("click", function() {
+        window.location.href = "https://api.whatsapp.com/send?phone=593959217004&text=Hola%2C%20Deseo%20Ordenar%20el%20Men%C3%BA%20semanal%2C%20mis%20platos%20son%3A%0A"+listadeplatos[0]+"%2C%0A"+listadeplatos[1]+"%2C%0A"+listadeplatos[2]+"%2C%0A"+listadeplatos[3]+"%2C%0A"+listadeplatos[4];
+    });
+};
+
 window.onload = function() {
 
 };
