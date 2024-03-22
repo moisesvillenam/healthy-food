@@ -5,7 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>MotivatEats</title>
     <script src="script.js"></script>
-    <link rel="stylesheet" href="estilos.css">   
+    <link rel="stylesheet" href="estilos.css">
+    <link rel="icon" href="Logo1.png">   
 </head>
 <body>
 <nav id="nav">
@@ -22,9 +23,9 @@
 <div id="calculator">
     <h1>Calculadora de IMC</h1>
 
-    <label for="weight">Peso Aproximado(kg): </label>
+    <label for="weight">Peso (kg): </label>
     <input type="number" id="weight" placeholder="Ingrese su peso" required>
-    <label for="height">Estatura Aproximada (m): </label>
+    <label for="height">Altura (m): </label>
     <input type="number" id="height" placeholder="Ingrese su altura" required>
     <label for="age">Edad: </label>
     <input type="number" id="age" placeholder="Ingrese su edad" required onkeydown="checkEnter(event)" onclick="clearEnterEvent()">
@@ -36,5 +37,6 @@
 </div>
 <button id="showMenuButton" onclick="cargarMenu()" style="display: none;">Mostrar Menú</button>
 <div id="menu"></div>
+<button id="botonAdicional" style="display: none;">Ordenar Menú Semanal</button>
 </body>
 </html>
