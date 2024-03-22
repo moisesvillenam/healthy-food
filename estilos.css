@@ -147,3 +147,18 @@ nav h1 {
 .posicion-relativa {
     position: relative;
 }
+#botonAdicional {
+    display: none; /* Ocultar el botón inicialmente */
+    margin-top: 20px; /* Agregar margen superior para separarlo del menú */
+    padding: 15px 30px; /* Ajustar el padding según sea necesario */
+    font-size: 18px; /* Ajustar el tamaño de fuente según sea necesario */
+    background-color: #3498db; /* Establecer el color de fondo del botón */
+    color: #fff; /* Establecer el color del texto del botón */
+    border: none; /* Eliminar borde */
+    border-radius: 8px; /* Agregar borde redondeado */
+    cursor: pointer; /* Cambiar el cursor al pasar sobre el botón */
+}
+
+#botonAdicional:hover {
+    background-color: #3498db; /* Cambiar color de fondo al pasar el cursor */
+}
