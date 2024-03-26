@@ -51,9 +51,9 @@ function calcularCalorias(peso, edad, imc) {
     }else if (imc < 24.9){
         var caloriasFinal = calorias1;
     }else if (imc < 29.9){
-        var caloriasFinal = (calorias1-350);
+        var caloriasFinal = (calorias1-400);
     }else{
-        var caloriasFinal = (calorias1-500);
+        var caloriasFinal = (calorias1-550);
     }
     return caloriasFinal;
 }
@@ -80,12 +80,12 @@ function mostrarMenu(platos) {
     sugerenciaCalorias = parseFloat(sugerenciaCalorias.split(' ')[2]);
 
     // Filtrar platos que tengan menos o igual cantidad de calorías que la tercera parte de la sugerencia
-    var platosFiltrados = platos.filter(plato => plato.calorias <= sugerenciaCalorias * 0.35);
+    var platosFiltrados = platos.filter(plato => plato.calorias <= sugerenciaCalorias * 0.30);
     var platosFinal = platosFiltrados.sort(function() { return Math.random() - 0.5 });
     // Mostrar máximo 5 platos
-    var platosAMostrar = platosFinal.slice(0, 5);
+    //var platosAMostrar = platosFinal.slice(0, 5);
     var listadeplatos = []
-    platosAMostrar.forEach(plato => {
+    platosFinal.forEach(plato => {
         listadeplatos.push(plato.nombre)
         var dishDiv = document.createElement('div');
         dishDiv.className = 'dish';
@@ -102,6 +102,8 @@ function mostrarMenu(platos) {
         var calorias = document.createElement('p');
         calorias.innerText = 'Calorías: ' + plato.calorias + ' kcal';
 
+        var descripcion = document.createElement('p');
+        descripcion.innerText = plato.description;
         // Botón para cada plato
         var botonPlato = document.createElement('button');
         botonPlato.innerText = 'Ordenar';
@@ -114,6 +116,7 @@ function mostrarMenu(platos) {
         dishDiv.appendChild(nombre);
         dishDiv.appendChild(precio);
         dishDiv.appendChild(calorias);
+        dishDiv.appendChild(descripcion);
         dishDiv.appendChild(botonPlato);
 
         menuContainer.appendChild(dishDiv);
